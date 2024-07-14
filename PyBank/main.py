@@ -1,28 +1,35 @@
 import os
 import csv
 
+# Imported budget csv file and stored data in a list.
 data_path = os.path.join("Resources","budget_data.csv")
 with open (data_path, "r") as data_file :
     data_reader=csv.reader(data_file,delimiter=",")
     header=next (data_reader)
     data = list(data_reader)
-    month= len(data)
-    
+
+# Calculating the number of months.
+month = len(data)
+
+# Calculated total profit.
 total_profits=0
 for row in data:
     total_profits =total_profits+int(row[1])
 
-
-total=0 
+# Calculated average change in profit, 
+# highest change and lowest change.
+total=0
 highest =int(data[0][1])
 highest_month =data[0][0]
 lowest= int(data[0][1])
 lowest_month=data[0][0]
+
 for index in range(len(data)-1):
     current=data[index][1]
     future=data[index+1][1]
     difference=int(future)-int(current)
     total=total+difference
+
     if difference > highest:
         highest_month = data[index+1][0]
         highest=difference
@@ -32,6 +39,7 @@ for index in range(len(data)-1):
 
 avg_change = total/(month - 1)
 
+# Displaying results.
 print("Financial Analysis" )
 print("----------------------------")
 print(f"Total Month: {month}")
